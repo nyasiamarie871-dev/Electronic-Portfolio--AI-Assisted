@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outfit Picker Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div>
+                <p class="eyebrow">NyAsia Holmes</p>
+                <h1>Portfolio</h1>
+            </div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="https://github.com/nyasiamarie871-dev" target="_blank">GitHub</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <h2>Run the Outfit Picker</h2>
+            <p>Use the same logic as your Python project, translated to the web for a live demo.</p>
+        </section>
+
+        <section class="content-card">
+            <h3>Outfit Settings</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="weather">Weather:</label>
+                    <select id="weather">
+                        <option value="hot">Hot</option>
+                        <option value="cold">Cold</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="occasion">Occasion:</label>
+                    <select id="occasion">
+                        <option value="casual">Casual</option>
+                        <option value="fancy">Fancy</option>
+                    </select>
+                </div>
+            </div>
+            <button id="pick-btn">Pick Outfit</button>
+            <div id="result" class="project-result"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Enjoy the live demo and check the project details for the original Python code.</p>
+    </footer>
+
+    <script>
+        const tops = ["T-shirt", "Hoodie", "Tank top", "Sweater"];
+        const bottoms = ["Jeans", "Shorts", "Skirt", "Sweatpants"];
+        const shoes = ["Sneakers", "Boots", "Sandals", "Slides"];
+
+        function chooseRandom(list) {
+            return list[Math.floor(Math.random() * list.length)];
+        }
+
+        function pickOutfit() {
+            const weather = document.getElementById('weather').value;
+            const occasion = document.getElementById('occasion').value;
+            let top, bottom, shoe;
+
+            if (weather === 'hot') {
+                top = chooseRandom(["T-shirt", "Tank top"]);
+                bottom = chooseRandom(["Shorts", "Skirt"]);
+                shoe = chooseRandom(["Sandals", "Slides"]);
+            } else if (weather === 'cold') {
+                top = chooseRandom(["Hoodie", "Sweater"]);
+                bottom = chooseRandom(["Jeans", "Sweatpants"]);
+                shoe = chooseRandom(["Sneakers", "Boots"]);
+            } else {
+                top = chooseRandom(tops);
+                bottom = chooseRandom(bottoms);
+                shoe = chooseRandom(shoes);
+            }
+
+            if (occasion === 'fancy') {
+                top = `Dressy ${top}`;
+                shoe = `Stylish ${shoe}`;
+            }
+
+            return {
+                top,
+                bottom,
+                shoe,
+                weather,
+                occasion
+            };
+        }
+
+        document.getElementById('pick-btn').addEventListener('click', function() {
+            const result = document.getElementById('result');
+            const outfit = pickOutfit();
+            result.innerHTML = `
+                <p>🔥 Your outfit for today:</p>
+                <ul>
+                    <li><strong>Top:</strong> ${outfit.top}</li>
+                    <li><strong>Bottom:</strong> ${outfit.bottom}</li>
+                    <li><strong>Shoes:</strong> ${outfit.shoe}</li>
+                </ul>
+            `;
+            result.classList.add('result-visible');
+        });
+    </script>
+</body>
+</html>
